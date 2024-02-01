@@ -1,113 +1,85 @@
-﻿
-namespace Calculator
+﻿namespace Calculator
 {
-
     public class Program
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the calculator app!");
-            Console.WriteLine("Please enter a operation you want to do.");
-            Console.WriteLine("You can enter: A letter 'A' for Addition (+)," +
-                "'S' for subtraction (-), 'M' for multiplication (*), 'D' for division (/), 'O' for modulus (%)," +
-                " 'C' for combination, 'P' for permutation}");
-            Console.WriteLine("Don't forget the your input will be like First Number (the operator will be used you entered) Second Number");
+            //low level coding first example
+            Console.WriteLine("Welcome to the calculator app!\n");
+            Console.WriteLine("Please enter a operation you want to do:\n +, -, *, /, %, C for combination, P for permutation");
 
+            //Console.WriteLine("You can enter: A letter 'A' for Addition (+)," +
+            //   "'S' for subtraction (-), 'M' for multiplication (*), 'D' for division (/), 'O' for modulus (%)," +
+            //   " 'C' for combination, 'P' for permutation}");
+
+            //string input = Console.ReadLine();
+            //char letter = input.ToUpper()[0];
+
+            //Console.WriteLine("Please enter a first number!");
+            //double number1 = Convert.ToDouble(Console.ReadLine());
+
+            //Console.WriteLine("Please enter a second number!");
+            //double number2 = Convert.ToDouble(Console.ReadLine());
+
+            //if (letter == 'A')
+            //{
+            //    Console.WriteLine($"Your operation is done. Result is {MathOperations.Addition(number1, number2)}");
+            //}
+            //else if (letter == 'S')
+            //{
+            //    Console.WriteLine($"Your operation is done. Result is {MathOperations.Subtraction(number1, number2)}");
+            //}
+            //else if (letter == 'M')
+            //{
+            //    Console.WriteLine($"Your operation is done. Result is {MathOperations.Multiplication(number1, number2)}");
+            //}
+            //else if (letter == 'D')
+            //{
+            //    Console.WriteLine($"Your operation is done. Result is {MathOperations.Divide(number1, number2)}");
+            //}
+            //else if (letter == 'O')
+            //{
+            //    Console.WriteLine($"Your operation is done. Result is {MathOperations.Modulus(number1, number2)}");
+            //}
+            //else if (letter == 'C')
+            //{
+            //    Console.WriteLine($"Your operation is done. Result is {MathOperations.Combination(number1, number2)}");
+            //}
+            //else if (letter == 'P')
+            //{
+            //    Console.WriteLine($"Your operation is done. Result is {MathOperations.Permutation(number1, number2)}");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Your input value is not correct! Try again ");
+            //}
+
+            //better version of the calculator
             string input = Console.ReadLine();
-
             input = input.ToUpper();
-            char letter = input[0];
+           
+            if (MathOperationsAdvance.operations.TryGetValue(input, out var operation))
+            {
+                float value = 0;
 
-            Console.WriteLine("Please enter a first number!");
-            double number1 = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Please enter a first number!");
+                string numberInput = Console.ReadLine();
 
-            Console.WriteLine("Please enter a second number!");
-            double number2 = Convert.ToDouble(Console.ReadLine());
+                float num1 = MathOperationsAdvance.TryParseFloat(numberInput, value);
 
-            if (letter == 'A')
-            {
-                Console.WriteLine($"Your operation is done. Result is {Addition(number1, number2)}");
-            }
-            else if (letter == 'S')
-            {
-                Console.WriteLine($"Your operation is done. Result is {Subtraction(number1, number2)}");
-            }
-            else if (letter == 'M')
-            {
-                Console.WriteLine($"Your operation is done. Result is {Multiplication(number1, number2)}");
-            }
-            else if(letter == 'D')
-            {
-                Console.WriteLine($"Your operation is done. Result is {Divide(number1, number2)}");
-            }
-            else if (letter == 'O')
-            {
-                Console.WriteLine($"Your operation is done. Result is {Modulus(number1, number2)}");
-            }
-            else if (letter == 'C')
-            {
-                Console.WriteLine($"Your operation is done. Result is {Combination(number1, number2)}");
-            }
-            else if (letter == 'P')
-            {
-                Console.WriteLine($"Your operation is done. Result is {Permutation(number1, number2)}");
+                Console.WriteLine("Please enter a second number!");
+                numberInput = Console.ReadLine();
+
+                float num2 = MathOperationsAdvance.TryParseFloat(numberInput, value);
+                Console.WriteLine($"Your operation ({input}) is done. Result is {operation.Invoke(num1, num2)}");
             }
             else
             {
-                Console.WriteLine("Your input value is not correct! Try again ");
+                Console.WriteLine("Your value is incorrect!");
             }
-        }
-
-        static double Addition(double number1, double number2)
-        {
-            return number1 + number2;
-        }
-
-        static double Subtraction(double number1, double number2)
-        {
-            return number1 - number2;
-        }
-        static double Multiplication(double number1, double number2)
-        {
-            return number1 * number2;
-        }
-        static double Divide(double number1, double number2)
-        {
-            return number1 / number2;
-        }
-        static double Modulus(double number1, double number2)
-        {
-            return number1 % number2;
-        }
-        static double Combination(double number1, double number2)
-        {
-            double number1Fac = Factoriel(number1);
-            double number2Fac = Factoriel(number2);
-            double number1Minus2Fac = Factoriel(Subtraction(number1, number2));
-
-            return number1Fac / (number1Minus2Fac * number2Fac);
-
-        }
-
-        static double Permutation(double number1, double number2)
-        {
-            double number1Fac = Factoriel(number1);
-            double number1Minus2Fac = Factoriel(Subtraction(number1, number2));
-            
-            return number1Fac / number1Minus2Fac ;
-
-        }
-
-        static double Factoriel(double number)
-        {
-            double result = 1;
-
-            for (double i = number; i >= 1; i--)
-            {
-                result *= i;
-            }
-
-            return result;
         }
     }
 }
+
+
+
